@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Adelia Portfolio – Model & Talent Cilik</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pink: #F9A8C9;
+    --pink-light: #FFF0F5;
+    --pink-mid: #FDD5E5;
+    --pink-deep: #E8739A;
+    --pink-dark: #C0446D;
+    --white: #FFFFFF;
+    --charcoal: #2C3E50;
+    --gray: #7F8C9A;
+    --gray-light: #F8F8F8;
+    --green-wa: #25D366;
+    --font-head: 'Quicksand', sans-serif;
+    --font-body: 'Nunito', sans-serif;
+    --radius: 20px;
+    --radius-sm: 12px;
+    --shadow: 0 8px 32px rgba(233,115,154,0.13);
+    --shadow-card: 0 4px 24px rgba(44,62,80,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--white);
+    color: var(--charcoal);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1.5px solid var(--pink-mid);
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    gap: 1rem;
+  }
+
+  .nav-brand {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--pink-dark);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav-badge {
+    font-size: 0.68rem;
+    font-weight: 600;
+    background: var(--pink-light);
+    color: var(--pink-dark);
+    border: 1px solid var(--pink-mid);
+    border-radius: 99px;
+    padding: 3px 10px;
+    white-space: nowrap;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 99px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-links a:hover {
+    background: var(--pink-light);
+    color: var(--pink-dark);
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-badge { display: none; }
+  }
+
+  /* ── FLOATING WA BUTTON ── */
+  .wa-float {
+    position: fixed;
+    bottom: 24px;
+    right: 20px;
+    z-index: 999;
+    background: var(--green-wa);
+    color: #fff;
+    border: none;
+    border-radius: 99px;
+    padding: 14px 20px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .wa-float:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 10px 32px rgba(37,211,102,0.5);
+  }
+  .wa-float svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 1.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, #fff 60%, var(--pink-light) 100%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    background: var(--pink-mid);
+    opacity: 0.45;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: var(--pink-mid);
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .hero-photo-wrap {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .hero-photo {
+    width: 220px;
+    height: 280px;
+    border-radius: 999px 999px 60% 60%;
+    object-fit: cover;
+    background: var(--pink-mid);
+    border: 5px solid var(--white);
+    box-shadow: 0 16px 48px rgba(233,115,154,0.28);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+
+  .hero-photo-placeholder {
+    width: 220px;
+    height: 280px;
+    border-radius: 999px 999px 60% 60%;
+    background: var(--pink-mid);
+    border: 5px solid var(--white);
+    box-shadow: 0 16px 48px rgba(233,115,154,0.28);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--pink-dark);
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 0 auto;
+  }
+
+  .photo-ring {
+    position: absolute;
+    top: -10px; left: -10px; right: -10px; bottom: -10px;
+    border-radius: 999px 999px 65% 65%;
+    border: 2.5px dashed var(--pink);
+    animation: spin-slow 18s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .sparkle {
+    position: absolute;
+    font-size: 1.4rem;
+    animation: float-sparkle 3s ease-in-out infinite alternate;
+  }
+  .sparkle-1 { top: 10px; right: -20px; animation-delay: 0s; }
+  .sparkle-2 { bottom: 30px; left: -24px; animation-delay: 1s; }
+  .sparkle-3 { top: 50%; right: -32px; animation-delay: 0.5s; }
+
+  @keyframes float-sparkle {
+    from { transform: translateY(0) rotate(-10deg); opacity: 0.7; }
+    to { transform: translateY(-10px) rotate(10deg); opacity: 1; }
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: var(--pink-light);
+    color: var(--pink-dark);
+    border: 1.5px solid var(--pink-mid);
+    border-radius: 99px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 5px 16px;
+    margin-bottom: 1rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-family: var(--font-head);
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    font-weight: 900;
+    color: var(--charcoal);
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero h1 span {
+    color: var(--pink-deep);
+  }
+
+  .hero p {
+    font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+    color: var(--gray);
+    max-width: 480px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    background: var(--pink-deep);
+    color: #fff;
+    border: none;
+    border-radius: 99px;
+    padding: 14px 28px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 6px 20px rgba(232,115,154,0.35);
+  }
+  .btn-primary:hover {
+    background: var(--pink-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(232,115,154,0.5);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--pink-dark);
+    border: 2px solid var(--pink-mid);
+    border-radius: 99px;
+    padding: 12px 26px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  }
+  .btn-outline:hover {
+    background: var(--pink-light);
+    border-color: var(--pink);
+    transform: translateY(-2px);
+  }
+
+  /* ── SECTION COMMON ── */
+  section {
+    padding: 5rem 1.5rem;
+  }
+
+  .section-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pink-deep);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .section-title {
+    font-family: var(--font-head);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800;
+    color: var(--charcoal);
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .section-sub {
+    color: var(--gray);
+    font-size: 1rem;
+    max-width: 500px;
+    margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+
+  /* ── STATS ── */
+  #stats {
+    background: var(--pink-light);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .stat-card {
+    background: var(--white);
+    border: 1.5px solid var(--pink-mid);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+  }
+
+  .stat-icon {
+    font-size: 2.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pink-deep);
+    margin-bottom: 0.4rem;
+  }
+
+  .stat-value {
+    font-family: var(--font-head);
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--charcoal);
+    line-height: 1;
+  }
+
+  .stat-unit {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gray);
+  }
+
+  /* ── GALLERY ── */
+  .moods-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .moods-grid { grid-template-columns: 1fr; }
+  }
+
+  .mood-card {
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .mood-card:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow);
+  }
+
+  .mood-photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--pink-mid);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--pink-dark);
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: transform 0.4s;
+  }
+  .mood-card:hover .mood-photo {
+    transform: scale(1.04);
+  }
+
+  .mood-photo img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+
+  .mood-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(44,62,80,0.7) 0%, transparent 100%);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 1.5rem 1rem 1rem;
+    letter-spacing: 0.03em;
+  }
+
+  .mood-emoji {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 4px;
+  }
+
+  /* Main gallery grid */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.85rem;
+    margin-bottom: 2.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .gallery-item {
+    aspect-ratio: 1;
+    border-radius: var(--radius-sm);
+    background: var(--pink-mid);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--pink-dark);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 0.5rem;
+  }
+  .gallery-item img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .gallery-item:hover {
+    transform: scale(1.04);
+    box-shadow: 0 8px 28px rgba(233,115,154,0.25);
+  }
+
+  /* like counter */
+  .like-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2.5rem;
+    background: var(--pink-light);
+    border-radius: var(--radius);
+    border: 1.5px solid var(--pink-mid);
+  }
+
+  .like-title {
+    font-family: var(--font-head);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+
+  .like-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    transition: transform 0.15s;
+    padding: 0.5rem;
+  }
+  .like-btn:active { transform: scale(0.9); }
+
+  .heart-icon {
+    font-size: 3rem;
+    line-height: 1;
+    transition: transform 0.3s cubic-bezier(.36,1.56,.64,1);
+    display: inline-block;
+    user-select: none;
+  }
+
+  .heart-icon.pop {
+    animation: heart-pop 0.4s cubic-bezier(.36,1.56,.64,1);
+  }
+
+  @keyframes heart-pop {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.55); }
+    70% { transform: scale(0.88); }
+    100% { transform: scale(1); }
+  }
+
+  .like-count {
+    font-family: var(--font-head);
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--pink-deep);
+    min-width: 80px;
+    text-align: center;
+  }
+
+  .like-sub {
+    font-size: 0.82rem;
+    color: var(--gray);
+    font-weight: 600;
+  }
+
+  /* ── BRANDS ── */
+  #brands {
+    background: var(--pink-light);
+  }
+
+  .brands-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+
+  .brand-badge {
+    background: var(--white);
+    border: 1.5px solid var(--pink-mid);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .brand-badge:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+  }
+
+  .brand-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .brand-name {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--charcoal);
+    margin-bottom: 2px;
+  }
+  .brand-type {
+    font-size: 0.72rem;
+    color: var(--gray);
+    font-weight: 600;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--pink-light);
+    border-top: 2px solid var(--pink-mid);
+  }
+
+  .contact-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    box-shadow: var(--shadow-card);
+    border: 1.5px solid var(--pink-mid);
+  }
+
+  .contact-desc {
+    color: var(--gray);
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    line-height: 1.8;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .contact-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gray);
+    min-width: 90px;
+  }
+
+  .contact-value {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--charcoal);
+  }
+
+  .copy-btn {
+    background: var(--pink-light);
+    color: var(--pink-dark);
+    border: 1.5px solid var(--pink-mid);
+    border-radius: 99px;
+    padding: 5px 14px;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+  .copy-btn:hover { background: var(--pink-mid); }
+  .copy-btn.copied {
+    background: #E8F8EF;
+    color: #1B7A4A;
+    border-color: #A3E2C1;
+  }
+
+  .ig-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--pink-dark);
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+  }
+  .ig-link:hover { color: var(--pink-deep); }
+
+  .wa-contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--green-wa);
+    color: #fff;
+    border: none;
+    border-radius: 99px;
+    padding: 14px 28px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 1.5rem;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 6px 20px rgba(37,211,102,0.3);
+  }
+  .wa-contact-btn:hover {
+    background: #1ebe5d;
+    transform: translateY(-2px);
+  }
+
+  footer {
+    background: var(--charcoal);
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  footer span { color: var(--pink); }
+
+  /* ── SECTION DIVIDER ── */
+  .divider {
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--pink-mid), transparent);
+    border: none;
+    margin: 0;
+  }
+
+  /* ── PHOTO PLACEHOLDER STYLE ── */
+  .ph {
+    background: var(--pink-mid);
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: var(--pink-dark);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .ph-icon {
+    font-size: 2rem;
+    opacity: 0.6;
+  }
+
+  /* Fancy decorative dots */
+  .dot-accent {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--pink-deep);
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════ NAV ══════════════════════════════════ -->
+<nav>
+  <a href="#home" class="nav-brand">✨ Adelia Portfolio</a>
+  <span class="nav-badge">🛡️ Official Account · Managed safely by Parents</span>
+  <nav class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#stats">Kids Stats</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#brands">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</nav>
+
+<!-- ══════════════════════════════════ HERO ══════════════════════════════════ -->
+<section id="home" class="hero">
+  <div class="hero-photo-wrap reveal">
+    <div class="photo-ring"></div>
+    <div class="hero-photo-placeholder">
+      <div class="ph-icon">📷</div>
+      <span>Foto Adelia<br/>di sini</span>
+    </div>
+    <span class="sparkle sparkle-1">⭐</span>
+    <span class="sparkle sparkle-2">💖</span>
+    <span class="sparkle sparkle-3">✨</span>
+  </div>
+
+  <span class="hero-tag reveal reveal-delay-1">✨ Model &amp; Talent Cilik Indonesia</span>
+
+  <h1 class="reveal reveal-delay-2">
+    Halo! Aku <span>Adelia</span> 👋
+  </h1>
+
+  <p class="reveal reveal-delay-3">
+    Model &amp; Talent Cilik yang Ceria, Ekspresif, dan Mudah Diarahkan.<br />Berbasis di <strong>Yogyakarta, Indonesia</strong>.
+  </p>
+
+  <div class="hero-ctas reveal reveal-delay-4">
+    <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20booking%20Adelia" class="btn-primary" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.124 1.528 5.849L.057 23.428a.75.75 0 0 0 .918.954l5.747-1.505A11.95 11.95 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.884 0-3.65-.49-5.186-1.35l-.371-.215-3.866 1.013 1.004-3.796-.233-.385A10.01 10.01 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Hubungi Orang Tua (WhatsApp)
+    </a>
+    <a href="#gallery" class="btn-outline">
+      📸 Lihat Foto-Foto
+    </a>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ══════════════════════════════════ STATS ══════════════════════════════════ -->
+<section id="stats">
+  <div class="section-inner">
+    <span class="section-label reveal">📊 Kids Stats</span>
+    <h2 class="section-title reveal reveal-delay-1">Data Fisik &amp; Domisili</h2>
+    <p class="section-sub reveal reveal-delay-2">Informasi dasar yang diperlukan untuk keperluan fitting, styling, dan koordinasi.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card reveal reveal-delay-1">
+        <div class="stat-icon">📏</div>
+        <div class="stat-label">Tinggi Badan</div>
+        <div class="stat-value">115 <span class="stat-unit">cm</span></div>
+      </div>
+      <div class="stat-card reveal reveal-delay-2">
+        <div class="stat-icon">⚖️</div>
+        <div class="stat-label">Berat Badan</div>
+        <div class="stat-value">20 <span class="stat-unit">kg</span></div>
+      </div>
+      <div class="stat-card reveal reveal-delay-3">
+        <div class="stat-icon">📍</div>
+        <div class="stat-label">Domisili</div>
+        <div class="stat-value" style="font-size:1.35rem;">Yogyakarta</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ══════════════════════════════════ GALLERY ══════════════════════════════════ -->
+<section id="gallery">
+  <div class="section-inner">
+    <span class="section-label reveal">🎭 The Moods</span>
+    <h2 class="section-title reveal reveal-delay-1">Ekspresi &amp; Kemampuan Akting</h2>
+    <p class="section-sub reveal reveal-delay-2">Adelia mampu menampilkan berbagai ekspresi alami sesuai kebutuhan shoot.</p>
+
+    <div class="moods-grid">
+      <div class="mood-card reveal reveal-delay-1">
+        <div class="mood-photo ph">
+          <span class="mood-emoji">😄</span>
+          <span>Foto Ceria</span>
+        </div>
+        <div class="mood-label">Ceria / Tertawa</div>
+      </div>
+      <div class="mood-card reveal reveal-delay-2">
+        <div class="mood-photo ph">
+          <span class="mood-emoji">🌸</span>
+          <span>Foto Candid</span>
+        </div>
+        <div class="mood-label">Natural / Candid</div>
+      </div>
+      <div class="mood-card reveal reveal-delay-3">
+        <div class="mood-photo ph">
+          <span class="mood-emoji">🌙</span>
+          <span>Foto Tenang</span>
+        </div>
+        <div class="mood-label">Fokus / Calm</div>
+      </div>
+    </div>
+
+    <span class="section-label reveal">🖼️ Portfolio Gallery</span>
+    <h2 class="section-title reveal reveal-delay-1" style="margin-top:0.4rem;">Foto-Foto Pilihan</h2>
+    <p class="section-sub reveal reveal-delay-2">Koleksi foto terbaik untuk lookbook, kasual, dan komersial.</p>
+
+    <div class="gallery-grid">
+      <div class="gallery-item ph reveal reveal-delay-1">
+        <div><div class="ph-icon">👗</div><span>Outfit Kasual</span></div>
+      </div>
+      <div class="gallery-item ph reveal reveal-delay-2">
+        <div><div class="ph-icon">👑</div><span>Lookbook</span></div>
+      </div>
+      <div class="gallery-item ph reveal reveal-delay-3">
+        <div><div class="ph-icon">🌺</div><span>Outdoor</span></div>
+      </div>
+      <div class="gallery-item ph reveal reveal-delay-1">
+        <div><div class="ph-icon">🎀</div><span>Formal Dress</span></div>
+      </div>
+      <div class="gallery-item ph reveal reveal-delay-2">
+        <div><div class="ph-icon">📦</div><span>Commercial</span></div>
+      </div>
+      <div class="gallery-item ph reveal reveal-delay-3">
+        <div><div class="ph-icon">🎊</div><span>Event</span></div>
+      </div>
+    </div>
+
+    <!-- LIKE COUNTER -->
+    <div class="like-block reveal">
+      <h3 class="like-title">💝 Dukung Adelia!</h3>
+      <button class="like-btn" id="likeBtn" aria-label="Klik untuk support Adelia">
+        <span class="heart-icon" id="heartIcon">🤍</span>
+        <span class="like-count" id="likeCount">0</span>
+      </button>
+      <span class="like-sub">Total dukungan dari para pendukung Adelia ✨</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ══════════════════════════════════ BRANDS ══════════════════════════════════ -->
+<section id="brands">
+  <div class="section-inner">
+    <span class="section-label reveal">🏆 Experience</span>
+    <h2 class="section-title reveal reveal-delay-1">Brand Collaborations &amp; Agency</h2>
+    <p class="section-sub reveal reveal-delay-2">Pengalaman bekerja bersama berbagai brand lokal, fashion show, dan agensi modeling anak.</p>
+
+    <div class="brands-grid">
+      <div class="brand-badge reveal reveal-delay-1">
+        <div class="brand-icon">👗</div>
+        <div class="brand-name">Kiddie Wardrobe</div>
+        <div class="brand-type">Brand Pakaian Anak</div>
+      </div>
+      <div class="brand-badge reveal reveal-delay-2">
+        <div class="brand-icon">🌟</div>
+        <div class="brand-name">Little Stars Agency</div>
+        <div class="brand-type">Agensi Modeling</div>
+      </div>
+      <div class="brand-badge reveal reveal-delay-3">
+        <div class="brand-icon">🎪</div>
+        <div class="brand-name">Jogja Kids Fest</div>
+        <div class="brand-type">Fashion Show</div>
+      </div>
+      <div class="brand-badge reveal reveal-delay-4">
+        <div class="brand-icon">📸</div>
+        <div class="brand-name">Cute Studio Jkt</div>
+        <div class="brand-type">Commercial Photo</div>
+      </div>
+      <div class="brand-badge reveal reveal-delay-1">
+        <div class="brand-icon">🎀</div>
+        <div class="brand-name">Mini Boutique ID</div>
+        <div class="brand-type">Brand Lokal</div>
+      </div>
+      <div class="brand-badge reveal reveal-delay-2">
+        <div class="brand-icon">🏅</div>
+        <div class="brand-name">Baby &amp; Kids Expo</div>
+        <div class="brand-type">Pameran Anak</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ══════════════════════════════════ CONTACT ══════════════════════════════════ -->
+<section id="contact">
+  <div class="section-inner">
+    <span class="section-label reveal">📞 Contact</span>
+    <h2 class="section-title reveal reveal-delay-1">Kerja Sama &amp; Booking</h2>
+    <p class="section-sub reveal reveal-delay-2">Untuk keperluan photoshoot, fashion show, endorsement, atau iklan produk anak, silakan hubungi manajemen orang tua kami melalui jalur resmi.</p>
+
+    <div class="contact-card reveal reveal-delay-2">
+      <p class="contact-desc">
+        Kami terbuka untuk kolaborasi brand, endorsement produk anak, fashion show lokal, iklan komersial, dan sesi foto kreatif. Seluruh komunikasi dikelola langsung oleh orang tua Adelia.
+      </p>
+
+      <div class="contact-row">
+        <span class="contact-label">WhatsApp</span>
+        <span class="contact-value" id="waNumber">+62 812-3456-7890</span>
+        <button class="copy-btn" id="copyBtn" onclick="copyNumber()">Salin Nomor</button>
+      </div>
+
+      <div class="contact-row">
+        <span class="contact-label">Instagram</span>
+        <a href="https://instagram.com/adelia.cilik" target="_blank" rel="noopener" class="ig-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          @adelia.cilik
+        </a>
+      </div>
+
+      <p style="font-size:0.88rem; color:var(--gray); margin-top:0.5rem;">
+        Ikuti keseharian Adelia di Instagram untuk foto &amp; update terbaru! ✨
+      </p>
+
+      <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20booking%20Adelia" target="_blank" rel="noopener" class="wa-contact-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.124 1.528 5.849L.057 23.428a.75.75 0 0 0 .918.954l5.747-1.505A11.95 11.95 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.884 0-3.65-.49-5.186-1.35l-.371-.215-3.866 1.013 1.004-3.796-.233-.385A10.01 10.01 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Chat via WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ FOOTER ══════════════════════════════════ -->
+<footer>
+  © 2026 <span>Adelia</span>. Managed safely by Parents. · All rights reserved.
+</footer>
+
+<!-- ══════════════════════════════════ FLOATING WA ══════════════════════════════════ -->
+<a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20booking%20Adelia" class="wa-float" target="_blank" rel="noopener" aria-label="Chat WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.124 1.528 5.849L.057 23.428a.75.75 0 0 0 .918.954l5.747-1.505A11.95 11.95 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.884 0-3.65-.49-5.186-1.35l-.371-.215-3.866 1.013 1.004-3.796-.233-.385A10.01 10.01 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+  WhatsApp Booking
+</a>
+
+<!-- ══════════════════════════════════ SCRIPTS ══════════════════════════════════ -->
+<script>
+  // ── SCROLL REVEAL ──
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Trigger hero immediately
+  document.querySelectorAll('.hero .reveal').forEach(el => {
+    setTimeout(() => el.classList.add('visible'), 80);
+  });
+
+  // ── LIKE COUNTER ──
+  const STORAGE_KEY = 'adelia_likes';
+  let liked = false;
+
+  function getLikes() {
+    return parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+  }
+
+  function setLikes(n) {
+    localStorage.setItem(STORAGE_KEY, String(n));
+  }
+
+  const likeBtn = document.getElementById('likeBtn');
+  const likeCountEl = document.getElementById('likeCount');
+  const heartIcon = document.getElementById('heartIcon');
+
+  // Load stored count
+  likeCountEl.textContent = getLikes().toLocaleString();
+
+  likeBtn.addEventListener('click', () => {
+    const current = getLikes();
+    const next = current + 1;
+    setLikes(next);
+    likeCountEl.textContent = next.toLocaleString();
+
+    // Animate heart
+    heartIcon.textContent = '❤️';
+    heartIcon.classList.remove('pop');
+    void heartIcon.offsetWidth; // force reflow
+    heartIcon.classList.add('pop');
+
+    // Particles burst
+    burst(likeBtn);
+  });
+
+  function burst(target) {
+    const rect = target.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const colors = ['#F9A8C9','#E8739A','#FDD5E5','#FFD6E7','#FFF0F5'];
+    for (let i = 0; i < 8; i++) {
+      const dot = document.createElement('span');
+      dot.style.cssText = `
+        position:fixed;
+        left:${cx}px;top:${cy}px;
+        width:8px;height:8px;
+        border-radius:50%;
+        background:${colors[i % colors.length]};
+        pointer-events:none;
+        z-index:9999;
+        transform:translate(-50%,-50%);
+        transition:none;
+      `;
+      document.body.appendChild(dot);
+      const angle = (i / 8) * 2 * Math.PI;
+      const dist = 40 + Math.random() * 30;
+      const tx = Math.cos(angle) * dist;
+      const ty = Math.sin(angle) * dist;
+      requestAnimationFrame(() => {
+        dot.style.transition = 'transform 0.55s ease-out, opacity 0.55s ease-out';
+        dot.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px))`;
+        dot.style.opacity = '0';
+        setTimeout(() => dot.remove(), 600);
+      });
+    }
+  }
+
+  // ── COPY TO CLIPBOARD ──
+  function copyNumber() {
+    const num = '+6281234567890';
+    navigator.clipboard.writeText(num).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '✓ Tersalin!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Salin Nomor';
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(() => {
+      // fallback
+      const ta = document.createElement('textarea');
+      ta.value = num;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '✓ Tersalin!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Salin Nomor';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
